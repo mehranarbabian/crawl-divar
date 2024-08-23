@@ -56,7 +56,7 @@ while True:
         }
     }
 
-    res = requests.post(url, json=json, headers=headers)
+    res = get_response_divar()
     data = res.json()
     last_post_date = data["pagination"]["data"]["last_post_date"]
 
