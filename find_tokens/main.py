@@ -1,0 +1,4 @@
+from save_divar_record import save_divar_record
+from save_neighborhood_name import save_neighborhood
+save_divar_record()
+save_neighborhood()

@@ -25,7 +25,7 @@ def __find_neighborhood_by_selenium(token):
         return None
 
 
-def main():
+def save_neighborhood():
     tokens = get_all_tokens()
 
     for token in tokens:
@@ -44,7 +44,5 @@ def main():
             continue
 
 
-if __name__ == "__main__":
-    main()
 
 

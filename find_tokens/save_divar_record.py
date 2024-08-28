@@ -1,11 +1,15 @@
 from get_data_by_count_down_date import get_data
 from mongo_util import save_collection_mongo, clean_mongo
 
-clean_mongo()
-data_array = get_data()
-items = []
-for data in data_array:
-    for widget in data['list_widgets']:
+
+def save_divar_record():
+
+
+    clean_mongo()
+    data_array = get_data()
+    items = []
+    for data in data_array:
+      for widget in data['list_widgets']:
         token = widget["data"]["action"]["payload"]["token"]
         title = widget["data"]["title"]
         try:
@@ -19,5 +23,5 @@ for data in data_array:
             items.append(item)
 
         except Exception as e:
-            continue
-save_collection_mongo(items)
+              continue
+    save_collection_mongo(items)
