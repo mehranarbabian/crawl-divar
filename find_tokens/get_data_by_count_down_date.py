@@ -1,10 +1,15 @@
 from datetime import datetime, timedelta
 import requests
-from pymongo import MongoClient
+
+import sys
 
 
-def __count_down():
-    init_date= "2024-08-21T21:23:11.461693Z"
+def __init__():
+    sys.stdout.reconfigure(encoding='utf-8')
+
+
+def __count_down_date():
+    init_date = "2024-08-21T21:23:11.461693Z"
     count_down_date_array = []
     # Convert the string to a datetime object
     start_date = datetime.strptime(init_date, '%Y-%m-%dT%H:%M:%S.%fZ')
@@ -26,10 +31,7 @@ def __count_down():
     return count_down_date_array
 
 
-
-
-
-def __change_response_by_last_modified_date(last_modified_date):
+def __get_response_by_last_modified_date(last_modified_date):
     url = "https://api.divar.ir/v8/postlist/w/search"
     json = {
         "city_ids": ["1"],
@@ -55,27 +57,14 @@ def __change_response_by_last_modified_date(last_modified_date):
     return requests.post(url, json=json, headers=headers)
 
 
-def get_data_array_by_count_down():
-    last_modified_date_array = __count_down()
+def get_data():
+    last_modified_date_array = __count_down_date()
     data_array = []
     for date in last_modified_date_array:
-        response = __change_response_by_last_modified_date(date)
+        response = __get_response_by_last_modified_date(date)
         data = response.json()
         data_array.append(data)
     return data_array
 
-def save_collection_mongo(items):
-    from pymongo import MongoClient
 
-    # Create a connection to MongoDB
-    client = MongoClient('mongodb://localhost:27017/')  # Adjust the URI if needed
 
-    # Select the database
-    db = client['Divar']
-
-    # Select the collection
-    collection = db['appartement']
-    result = collection.insert_many(items)
-
-    # Print the inserted IDs
-    print(f"Documents inserted with IDs: {result.inserted_ids}")
